@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block page_stylesheets %}
+    <!-- internal css-->
+    {% stylesheets '@internal_css'  filter='?uglifycss' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+{% endblock %}
+{% block main %}
+{% for user in users %}
+<div class="col-xs-12 nopadding mar-top-20 text-center user-row">
+    <div class="col-xs-12 col-sm-3 col-md-3 mar-top-10">
+        <b>Name</b>: {{ user.name }}
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 mar-top-10">
+        <b>Username</b>: {{ user.username }}
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 mar-top-10">
+        <b>Password</b>: {{ user.password }}
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 mar-top-10">
+        <button class="site-btn btn btn-danger">Disable</button>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

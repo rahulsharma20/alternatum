@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block page_stylesheets %}
+    <!-- internal css-->
+    {% stylesheets '@internal_css'  filter='?uglifycss' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+{% endblock %}
+{% block main %}
+{{dump(users)}}
+{% endblock %}

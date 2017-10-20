@@ -1,0 +1,13 @@
+.internal-home-container {
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px #666;
+}
+.internal-home-item {
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 5px;
+}
+.user-row {
+  border: 1px solid #999;
+  border-radius: 5px;
+}

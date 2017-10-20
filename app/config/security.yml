@@ -1,0 +1,64 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    encoders:
+        AppBundle\Entity\Users: plaintext
+        AppBundle\Entity\InternalUsers: plaintext
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        webservice:
+            entity: { class: AppBundle\Entity\Users, property: username }
+        internal:
+            entity: { class: AppBundle\Entity\InternalUsers, property: username }
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        internal:
+            anonymous: ~
+            pattern:  ^/_(internal)/
+            http_basic:
+                realm: 'Internal User Area'
+            provider: internal
+            remember_me:
+                key:      "internal_%secret%"
+                lifetime: 5184000 # 60 days in seconds
+                path:     /_internal
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                #always_remember_me: true
+            form_login:
+                login_path: /_internal/login
+                check_path: /_internal/login_check
+            logout:
+                path:   /_internal/logout
+                target: /
+                success_handler: account.security_listener
+
+        main:
+            anonymous: ~
+            http_basic: ~
+            remember_me:
+                key: "members_%secret%"
+                lifetime: 5184000 # 60 days in seconds
+                path:     /
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                #always_remember_me: true
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path:   /logout
+                target: /
+                success_handler: account.security_listener
+
+    access_control:
+        # require ROLE_ADMIN for /admin*
+        - { path: /_internal/admin, roles: ROLE_ADMIN }

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block page_stylesheets %}
+    <!-- internal css-->
+    {% stylesheets '@internal_css'  filter='?uglifycss' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+{% endblock %}
+{% block main %}
+{% for building in all_buildings %}
+    <div class="col-xs-12 col-sm-4 col-md-3 mar-top-30">
+        <a href="{{path('internal_assign_by_building', {building_id: building.id, building_name: building.building})}}">
+            <div class="col-xs-12" style="border: 1px solid #999; border-radius: 5px;">
+                <h2 class="text-center">{{building.building}}</h2>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+{% endblock %}

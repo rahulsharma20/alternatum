@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Login Alternatum.
+{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid xs-padd-lr-5 body-container">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 nopadding">
+
+        <h1 class="prompt text-center">Admin Login</h1>
+
+        <div class="bs-example" data-example-id="simple-horizontal-form">
+
+            <form action="{{ path('internal_login_check') }}" class="form-horizontal login-form form" method="post">
+                {% if error %}
+                <div class="row padd-lr-15">
+                    <div class="cold-xs-12">
+                        <p class="bg-danger line-height-35 text-center">
+                            {{ error.messageKey|trans(error.messageData) }}
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="row padd-lr-15">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label class="control-label text-left" for="username">
+                                Username
+                            </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="username" name="_username" placeholder="Username" required type="text" value="{{ last_username }}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row padd-lr-15">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label class="control-label text-left for=" password">Password</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="password" name="_password" placeholder="Password" required type="password"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row  padd-lr-15 ">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label class="control-label" for="remember_me">Keep me logged in&nbsp;&nbsp;</label>
+                            <input checked id="remember_me" name="_remember_me" type="checkbox"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row padd-lr-15 mar-top-15">
+                    <div class="form-group">
+                        <div class="col-xs-6 col-sm-4 col-sm-offset-3">
+                            <button class="btn btn-default site-btn" type="submit">Sign in</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {% if target_path is defined %}
+            <input type="hidden" name="_target_path" value="{{target_path}}" />
+            {% endif %}
+        </form>
+
+    </div>
+
+</div>
+<br/><br/><br/>
+</div>
+
+{% endblock %}

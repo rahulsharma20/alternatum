@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block page_stylesheets %}
+    <!-- site css-->
+    {% stylesheets '@logging_css' filter='?uglifycss' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+    {% stylesheets output='css' filter='cssrewrite' '%kernel.root_dir%/../vendor/components/jqueryui/themes/cupertino/jquery-ui.css'%}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block main %}
+    <div class="col-xs-12 nopadding text-center">
+        <h1>{{building.building}}</h1>
+    </div>
+    {{ form_errors(form_view) }}
+    <div class="col-xs-12 nopadding">
+        <div class="col-xs-6">
+            <a href="{{path('homepage')}}">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </a>
+        </div>
+        <div class="col-xs-6 text-right">
+            <a href="#">
+                See All Entries
+            </a>
+        </div>
+    </div>
+    {% if entry_saved is defined and entry_saved == true %}
+        <div class="col-xs-12 text-center text-success">
+            <h4>Your entry has been saved.</h4>
+        </div>
+    {% endif %}
+    <div class="col-xs-12 mar-top-30">
+        {{form_start(form_view)}}
+        <form class="form-inline">
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Level</label>
+                <div class="form-group {% if form_view.level.vars.valid==false %}has-error{% endif %}">
+                    {{ form_widget(form_view.level) }}
+                    {{ form_errors(form_view.level) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Room No</label>
+                <div class="form-group {% if form_view.room_no.vars.valid==false %}has-error{% endif %}">
+                    {{ form_widget(form_view.room_no) }}
+                    {{ form_errors(form_view.room_no) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">DorR</label>
+                <div class="form-group {% if form_view.dorR.vars.valid==false %}has-error{% endif %}">
+                    {{ form_widget(form_view.dorR) }}
+                    {{ form_errors(form_view.dorR) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Responsible</label>
+                <div class="form-group {% if form_view.responsible.vars.valid==false %}has-error{% endif %}">
+                    {{ form_widget(form_view.responsible) }}
+                    {{ form_errors(form_view.responsible) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="comment">Description</label>
+                <div class="form-group {% if form_view.description.vars.valid==false %}has-error{% endif %} ">
+                    {{ form_widget(form_view.description) }}
+                    {{ form_errors(form_view.description) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Inspection Date</label>
+                {{ form_widget(form_view.inspectiondate) }}
+                {{ form_errors(form_view.inspectiondate) }}
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Due Date</label>
+                {{ form_widget(form_view.duedate) }}
+                {{ form_errors(form_view.duedate) }}
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3 mar-top-30">
+                {{ form_widget(form_view.complete) }}&nbsp;Complete
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 mar-top-20">
+                {{ form_widget(form_view.save) }}
+            </div>
+        </form>
+        {{form_end(form_view)}}
+    </div>
+{% endblock %}
+{% block page_javascripts %}
+    <!--Jquery UI-->
+    {% javascripts '@jquery_ui_js' '@logging_js' filter='?uglifyjs2' %}
+        <script language="javascript" type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

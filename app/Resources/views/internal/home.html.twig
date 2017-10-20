@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block page_stylesheets %}
+    <!-- site css-->
+    {% stylesheets '@internal_css'  filter='?uglifycss' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+{% endblock %}
+{% block main %}
+<div class="internal-home-container text-center col-xs-12 mar-bot-10">
+    <div class="col-xs-12 col-sm-3 col-md-2 mar-top-10">
+        <div class="col-xs-12 internal-home-item">
+            <a href="{{path('internal_add_user')}}">
+                Add New User
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 mar-top-10 mar-bot-10">
+        <div class="col-xs-12 internal-home-item">
+            <a href="{{path('internal_disable_user')}}">
+                Disable User
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 mar-top-10 mar-bot-10">
+        <div class="col-xs-12 internal-home-item">
+            <a href="{{path('internal_add_building')}}">
+                Add Building
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 mar-top-10 mar-bot-10">
+        <div class="col-xs-12 internal-home-item">
+            <a href="{{path('internal_assign_users')}}">
+                Assign Users
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 mar-top-10 mar-bot-10">
+        <div class="col-xs-12 internal-home-item">
+            <a href="{{path('internal_user_logs')}}">
+                Check User Logs
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 mar-top-10 mar-bot-10">
+        <div class="col-xs-12 internal-home-item">
+            <a href="{{path('internal_building_logs')}}">
+                Check Building Logs
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

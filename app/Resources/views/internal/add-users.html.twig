@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+{% if user_exists is defined and user_exists == true %}
+    <div class="col-xs-12 text-center text-danger mar-bot-10">
+        <h4>Sorry, a user with this username already exists.</h4>
+    </div>
+{% endif %}
+{% if entry_saved is defined and entry_saved == true %}
+    <div class="col-xs-12 text-center text-success mar-bot-10">
+        <h4>Your entry has been saved.</h4>
+    </div>
+{% endif %}
+{{form_start(form_view)}}
+<form class="form-inline">
+    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+        <label for="sel1">Name</label>
+        <div class="form-group {% if form_view.name.vars.valid==false %}has-error{% endif %}">
+            {{ form_widget(form_view.name) }}
+            {{ form_errors(form_view.name) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+        <label for="sel1">Username</label>
+        <div class="form-group {% if form_view.username.vars.valid==false %}has-error{% endif %}">
+            {{ form_widget(form_view.username) }}
+            {{ form_errors(form_view.username) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+        <label for="sel1">Password</label>
+        <div class="form-group {% if form_view.password.vars.valid==false %}has-error{% endif %}">
+            {{ form_widget(form_view.password) }}
+            {{ form_errors(form_view.password) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-3 col-md-3 mar-top-20 text-center">
+        {{ form_widget(form_view.save) }}
+    </div>
+</form>
+{{form_end(form_view)}}
+{% endblock %}

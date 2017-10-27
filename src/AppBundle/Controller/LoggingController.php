@@ -108,4 +108,28 @@ class LoggingController extends Controller
             ));
         }
     }
+
+    /**
+     * @Route("/view/logs/{building_id}/{building_name}.html", name="view_building_logs")
+     */
+    public function viewBuildingLogsAction(Request $request, $building_id, $building_name)
+    {
+        if (!$this->getUser())
+        {
+            return $this->redirectToRoute('login_route');
+        }
+        $building = $this->getDoctrine()->getRepository('AppBundle:Building')->find($building_id);
+
+        // If building name does not match with DB, throw error.
+        if ($building->getBuilding() != $building_name)
+        {
+            throw $this->createNotFoundException('Sorry the page you are looking for is not found on the server');
+        }
+
+        $user_building_logs = $this->getDoctrine()->getRepository('AppBundle:Main')->getUserBuildingLogs($building_id, $this->getUser()->getId());
+
+        return $this->render('logging/view-logs.html.twig', array(
+            'user_building_logs' => $user_building_logs
+        ));
+    }
 }

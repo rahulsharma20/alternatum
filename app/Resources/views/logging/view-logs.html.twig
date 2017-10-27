@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block page_stylesheets %}
+    <!-- site css-->
+    {% stylesheets '@logging_css' filter='?uglifycss' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+    {% stylesheets output='css' filter='cssrewrite' '%kernel.root_dir%/../vendor/components/jqueryui/themes/cupertino/jquery-ui.css'%}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block main %}
+    {% for log in user_building_logs %}
+        <div class="col-xs-12 mar-top-15" style="border: 1px solid #ccc; border-radius: 5px; background-color: #fafafa; padding: 10px 0px;">
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                Building: {{log.building.building}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                Level: {{log.level.level}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                Room No: {{log.roomNo.roomNo}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                Description: {{log.description}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                DorR: {{log.dorR.dorR}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                Responsible: {{log.responsible.field1}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                Due Date: {{log.dueDate.date}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                Inspection Date: {{log.inspectionDate.date}}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block page_javascripts %}
+    <!--Jquery UI-->
+    {% javascripts '@jquery_ui_js' '@logging_js' filter='?uglifyjs2' %}
+        <script language="javascript" type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

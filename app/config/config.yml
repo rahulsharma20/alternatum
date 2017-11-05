@@ -9,9 +9,8 @@ parameters:
     locale: en
 
     ##Path to Node JS bin and lib
-    node: /usr/local/bin/node
-    node_paths: [/usr/local/lib/node_modules]
-
+    node: /home/ec2-user/.nvm/versions/node/v6.11.5/bin/node
+    node_paths: [/home/ec2-user/.nvm/versions/node/v6.11.5/lib/node_modules]
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }

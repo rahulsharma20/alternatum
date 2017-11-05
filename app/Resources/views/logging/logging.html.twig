@@ -2,7 +2,7 @@
 
 {% block page_stylesheets %}
     <!-- site css-->
-    {% stylesheets '@logging_css' filter='?uglifycss' %}
+    {% stylesheets '@logging_css' %}
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
     {% endstylesheets %}
     {% stylesheets output='css' filter='cssrewrite' '%kernel.root_dir%/../vendor/components/jqueryui/themes/cupertino/jquery-ui.css'%}
@@ -92,7 +92,7 @@
 {% endblock %}
 {% block page_javascripts %}
     <!--Jquery UI-->
-    {% javascripts '@jquery_ui_js' '@logging_js' filter='?uglifyjs2' %}
+    {% javascripts '@jquery_ui_js' '@logging_js' %}
         <script language="javascript" type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

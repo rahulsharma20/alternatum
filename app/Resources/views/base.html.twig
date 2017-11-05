@@ -5,13 +5,13 @@
         <title>{% block title %}Alternatum{% endblock %}</title>
         {% block base_stylesheets %}
             <!-- bootstrap-->
-            {% stylesheets '@bootstrap_css'  filter='?uglifycss' %}
+            {% stylesheets '@bootstrap_css' %}
                 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
             {% endstylesheets %}
         {% endblock %}
         {% block site_stylesheets %}
             <!-- site css-->
-            {% stylesheets '@site_css'  filter='?uglifycss' %}
+            {% stylesheets '@site_css' %}
                 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
             {% endstylesheets %}
         {% endblock %}
@@ -35,7 +35,7 @@
         {% endblock %}
         {% block base_javascripts %}
             <!--Jquery and Bootsrap js-->
-            {% javascripts '@jquery' '@bootstrap_js' filter='?uglifyjs2' %}
+            {% javascripts '@jquery' '@bootstrap_js' %}
                 <script language="javascript" type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}

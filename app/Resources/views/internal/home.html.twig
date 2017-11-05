@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block page_stylesheets %}
     <!-- site css-->
-    {% stylesheets '@internal_css'  filter='?uglifycss' %}
+    {% stylesheets '@internal_css' %}
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
     {% endstylesheets %}
 {% endblock %}

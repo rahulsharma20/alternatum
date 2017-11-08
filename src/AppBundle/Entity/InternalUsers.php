@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * InternalUsers
  *
- * @ORM\Table(name="INTERNAL_USERS")
+ * @ORM\Table(name="internal_users")
  * @ORM\Entity
  */
 class InternalUsers   implements AdvancedUserInterface, \Serializable

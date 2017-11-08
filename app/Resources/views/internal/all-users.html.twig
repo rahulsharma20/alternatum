@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block page_stylesheets %}
+    <!-- internal css-->
+    {% stylesheets '@internal_css' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+{% endblock %}
+{% block main %}
+<div class="col-xs-12">
+    <h1 class="text-center">
+        Please select a user
+    </h1>
+</div>
+<div class="col-xs-12">
+    {% for user in users %}
+        <a href="{{path('internal_user_logs_by_user_id', {'user_id': user.id, 'user_name': user.name}) }}">
+            <div class="col-xs-6 col-sm-4 col-md-2 mar-top-20 text-center">
+                <div class="col-xs-12 internal-home-item">
+                    <div style="display: table-cell; vertical-align: middle; font-size: 20px;">
+                        {{user.name}}
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

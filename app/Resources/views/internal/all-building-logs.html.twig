@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block page_stylesheets %}
+    <!-- internal css-->
+    {% stylesheets '@internal_css' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+{% endblock %}
+{% block main %}
+<div class="col-xs-12">
+    <h1 class="text-center">
+        User: {{app.request.get('_route_params')['building_name']}}
+    </h1>
+</div>
+<div class="col-xs-12">
+    {% if all_building_logs|length == 0 %}
+        <div class="col=-xs-12">
+            <h2 class="text-center">
+                Sorry. nothing to show here.
+            </h2>
+        </div>
+    {% endif %}
+    {% for log in all_building_logs %}
+        <div class="col-xs-12 internal-home-item text-center mar-top-10" style="font-size: 16px;">
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                User: {{log.user.name}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                Level: {{log.level}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                Responsible: {{log.responsible}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                DorR: {{log.dorR}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                RoomNo: {{log.roomNo}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                Description: {{log.description}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                Due Date: {{log.dueDate|date('d-m-Y')}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                Inspection Date: {{log.inspectionDate|date('d-m-Y')}}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

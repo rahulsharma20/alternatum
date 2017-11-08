@@ -182,6 +182,9 @@ assetic:
         logging_js:
             inputs:
                 - %kernel.root_dir%/Resources/public/js/logging.js
+        admin_js:
+            inputs:
+                - %kernel.root_dir%/Resources/public/js/admin.js
         internal_css:
             inputs:
                 - %kernel.root_dir%/Resources/public/css/internal.less

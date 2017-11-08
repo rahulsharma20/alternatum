@@ -6,5 +6,30 @@
     {% endstylesheets %}
 {% endblock %}
 {% block main %}
-{{dump(users)}}
+<div class="col-xs-12">
+    <h1 class="text-center">
+        <span style="font-size: 90%;">Assign Users To Building:</span> {{ app.request.get('_route_params')['building_name'] }}
+    </h1>
+</div>
+<div class="col-xs-12 mar-top-10">
+{% for user in all_users %}
+    <div class="col-xs-12 col-sm-3 col-md-2" style="border: 1px solid #ccc; padding: 10px;">
+        <div class="col-xs-10">
+            {{user.name}}
+        </div>
+        <div class="col-xs-2">
+            <span style="text-align: right;">
+                {% set user_object = {'ID': user.id} %}
+                <input type="checkbox" class="assign_user" userid="{{user.id}}" buildingid="{{app.request.get('_route_params')['building_id']}}" {{ user_object in all_users_assigned ? 'checked' : '' }} />
+            </span>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% block page_javascripts %}
+    <!--Jquery UI-->
+    {% javascripts '@jquery' '@admin_js' %}
+        <script language="javascript" type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 {% endblock %}

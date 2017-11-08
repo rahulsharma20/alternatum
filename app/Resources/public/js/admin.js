@@ -11,7 +11,7 @@ $(document).ready(function(){
             var error_msg = 'Error assigning user to building.'
             $.ajax({
                 type: "POST",
-                url: base_url + '/app_dev.php/_internal/admin/assign/user/building',
+                url: base_url + '/_internal/admin/assign/user/building',
                 data: JSON.stringify(data),
                 dataType: "json",
                 success: function (response) {
@@ -36,7 +36,7 @@ $(document).ready(function(){
             var error_msg = 'Error removing user from building.'
             $.ajax({
                 type: "POST",
-                url: base_url + '/app_dev.php/_internal/admin/remove/user/building',
+                url: base_url + '/_internal/admin/remove/user/building',
                 data: JSON.stringify(data),
                 dataType: "json",
                 success: function (response) {

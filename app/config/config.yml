@@ -11,6 +11,21 @@ parameters:
     ##Path to Node JS bin and lib
     node: /home/ec2-user/.nvm/versions/node/v6.11.5/bin/node
     node_paths: [/home/ec2-user/.nvm/versions/node/v6.11.5/lib/node_modules]
+
+    image_uri_prefix: /images/products
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        product_image:
+            uri_prefix: %image_uri_prefix%
+            upload_destination: '%kernel.root_dir%/../web/images/products'
+            namer: vich_uploader.namer_uniqid
+
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
@@ -37,6 +52,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        image_uri_prefix: %image_uri_prefix%
 
 # Assetic Configuration
 assetic:

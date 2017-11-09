@@ -28,6 +28,8 @@ class MainType extends AbstractType
             ->add('inspectiondate', 'text', array(
                 'attr' => array('class' => 'col-xs-12 form-control')
             ))
+            ->add('imageFile', 'file', array(
+            ))
             ->add('duedate', 'text', array(
                 'attr' => array('class' => 'col-xs-12 form-control')
             ));

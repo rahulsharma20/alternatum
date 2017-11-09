@@ -23,19 +23,25 @@
                 Room No: {{log.roomNo.roomNo}}
             </div>
             <div class="col-xs-12 col-sm-4 col-md-2">
-                Description: {{log.description}}
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-2">
                 DorR: {{log.dorR.dorR}}
             </div>
             <div class="col-xs-12 col-sm-4 col-md-2">
                 Responsible: {{log.responsible.field1}}
             </div>
             <div class="col-xs-12 col-sm-4 col-md-2">
-                Due Date: {{log.dueDate.date}}
+                Due Date: {{log.dueDate.date|date('M-d-Y')}}
             </div>
             <div class="col-xs-12 col-sm-4 col-md-2">
-                Inspection Date: {{log.inspectionDate.date}}
+                Inspection Date: {{log.inspectionDate.date|date('M-d-Y')}}
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                Description: {{log.description}}
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-5">
+                {% set image_url = url('homepage') | replace({'app_dev.php/': ''}) ~ image_uri_prefix | trim('/') ~ '/' ~ log.photo %}
+                <a href="{{image_url}}" target="_blank">
+                    <img src="{{image_uri_prefix}}/{{log.photo}}" width="100%" />
+                </a>
             </div>
         </div>
     {% endfor %}

@@ -53,6 +53,34 @@ class Users implements AdvancedUserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string")
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string")
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="project_role", type="string")
+     */
+    private $projectRole;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string")
+     */
+    private $company;
+
+    /**
      * Get id
      *
      * @return integer
@@ -152,6 +180,98 @@ class Users implements AdvancedUserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Users
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Users
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set projectRole
+     *
+     * @param string $projectRole
+     * @return Users
+     */
+    public function setProjectRole($projectRole)
+    {
+        $this->projectRole = $projectRole;
+
+        return $this;
+    }
+
+    /**
+     * Get projectRole
+     *
+     * @return string
+     */
+    public function getProjectRole()
+    {
+        return $this->projectRole;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     * @return Users
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
     }
 
     public function getRoles()

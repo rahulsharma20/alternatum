@@ -18,6 +18,19 @@ class BuildingType extends AbstractType
                 'label' => 'Building Name',
                 'attr' => array('class' => 'col-xs-12 form-control')
             ))
+            ->add('size', 'text', array(
+                'label' => 'Size',
+                'attr' => array('class' => 'col-xs-12 form-control')
+            ))
+            ->add('buildingType' ,'entity',array(
+                'class' => 'AppBundle:BuildingTypes',
+                'attr' => array('class' => 'col-xs-12 form-control' ),
+                'choices'  => $options['building_types'],
+                'data' => $options['building_types'][0],
+                'placeholder' => 'Choose an option',
+                'expanded' => false,
+                'multiple' => false
+            ))
         ;
     }
 

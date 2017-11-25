@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
+{% block page_stylesheets %}
+    <!-- internal css-->
+    {% stylesheets '@internal_css' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" >
+    {% endstylesheets %}
+{% endblock %}
 {% block main %}
+<h1 class="text-center">{{project_name}}</h1>
 {% if user_exists is defined and user_exists == true %}
     <div class="col-xs-12 text-center text-danger mar-bot-10">
         <h4>Sorry, a building with this name already exists.</h4>
@@ -10,18 +17,48 @@
         <h4>Your entry has been saved.</h4>
     </div>
 {% endif %}
-{{form_start(form_view)}}
-<form class="form-inline">
-    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-        <label for="sel1">Building Name</label>
-        <div class="form-group {% if form_view.building.vars.valid==false %}has-error{% endif %}">
-            {{ form_widget(form_view.building) }}
-            {{ form_errors(form_view.building) }}
+<div class="col-xs-12 nopadding mar-top-15">
+    {{form_start(form_view)}}
+    <form class="form-inline">
+        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+            <label for="sel1">Building Name</label>
+            <div class="form-group {% if form_view.building.vars.valid==false %}has-error{% endif %}">
+                {{ form_widget(form_view.building) }}
+                {{ form_errors(form_view.building) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group col-xs-12 col-sm-6 col-md-3 mar-top-20 text-center">
-        {{ form_widget(form_view.save) }}
-    </div>
-</form>
-{{form_end(form_view)}}
+        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+            <label for="sel1">Size</label>
+            <div class="form-group {% if form_view.size.vars.valid==false %}has-error{% endif %}">
+                {{ form_widget(form_view.size) }}
+                {{ form_errors(form_view.size) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+            <label for="sel1">Building Type</label>
+            <div class="form-group {% if form_view.buildingType.vars.valid==false %}has-error{% endif %}">
+                {{ form_widget(form_view.buildingType) }}
+                {{ form_errors(form_view.buildingType) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-3 mar-top-20 text-center">
+            {{ form_widget(form_view.save) }}
+        </div>
+    </form>
+    {{form_end(form_view)}}
+</div>
+<div class="col-xs-12 nopadding mar-top-30">
+    <h2 class="text-center mar-top-30">All Buildings</h2>
+    {% for building in all_buildings %}
+        <div class="col-xs-12 col-sm-3 col-md-2 mar-top-10">
+            <a href="{{path('internal_add_building', {project_id: project_id, project_name: project_name, building_id: building.id})}}">
+                <div class="col-xs-12 internal-home-item">
+                    <div class="text-center">
+                            {{building.building}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

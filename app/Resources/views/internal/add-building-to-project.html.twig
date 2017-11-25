@@ -6,13 +6,17 @@
     {% endstylesheets %}
 {% endblock %}
 {% block main %}
-<h1 class="text-center">{{project_name}}</h1>
-{% for building in all_buildings %}
+{% if all_projects | length == 0 %}
+<h3 class="text-center">Sorry, there are no live projects at the moment</h3>
+{% else %}
+<h1 class="text-center">Please select a project</h1>
+{% endif %}
+{% for project in all_projects %}
     <div class="col-xs-12 col-sm-4 col-md-3 mar-top-30">
-        <a href="{{path('internal_assign_by_building', {building_id: building.id, building_name: building.building})}}">
+        <a href="{{path('internal_add_building', {project_id: project.id, project_name: project.name})}}">
             <div class="col-xs-12 internal-home-item">
                 <div>
-                    <h2 class="text-center">{{building.building}}</h2>
+                    <h2 class="text-center">{{project.name}}</h2>
                 </div>
             </div>
         </a>

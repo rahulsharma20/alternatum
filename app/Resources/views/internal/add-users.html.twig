@@ -33,6 +33,34 @@
             {{ form_errors(form_view.password) }}
         </div>
     </div>
+    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+        <label for="sel1">Email</label>
+        <div class="form-group {% if form_view.email.vars.valid==false %}has-error{% endif %}">
+            {{ form_widget(form_view.email) }}
+            {{ form_errors(form_view.email) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+        <label for="sel1">Phone</label>
+        <div class="form-group {% if form_view.phone.vars.valid==false %}has-error{% endif %}">
+            {{ form_widget(form_view.phone) }}
+            {{ form_errors(form_view.phone) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+        <label for="sel1">Project Role</label>
+        <div class="form-group {% if form_view.projectRole.vars.valid==false %}has-error{% endif %}">
+            {{ form_widget(form_view.projectRole) }}
+            {{ form_errors(form_view.projectRole) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+        <label for="sel1">Company</label>
+        <div class="form-group {% if form_view.company.vars.valid==false %}has-error{% endif %}">
+            {{ form_widget(form_view.company) }}
+            {{ form_errors(form_view.company) }}
+        </div>
+    </div>
     <div class="form-group col-xs-12 col-sm-3 col-md-3 mar-top-20 text-center">
         {{ form_widget(form_view.save) }}
     </div>

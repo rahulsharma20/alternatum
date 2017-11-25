@@ -108,11 +108,26 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("/add/building", name="internal_add_building")
+     * @Route("/add/building", name="internal_add_building_to_project")
      */
-    public function addBuildingAction(Request $request)
+    public function addBuildingToProjectAction(Request $request)
     {
-        $building = new Building;
+        $all_projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findAll();
+
+        return $this->render('internal/add-building-to-project.html.twig', array('all_projects' => $all_projects));
+    }
+
+    /**
+     * @Route("/add/building/{project_id}/{project_name}/{building_id}", defaults={"building_id"="new"}, name="internal_add_building")
+     */
+    public function addBuildingAction(Request $request, $project_id, $project_name, $building_id)
+    {
+        if ($building_id != "new")
+        {
+            $building = $this->getDoctrine()->getRepository('AppBundle:Building')->findById($building_id);
+        } else {
+            $building = new Building;
+        }
 
         $builder = $this->get('form.factory')->createNamedBuilder(
                                                     "app_users",'form',$building,
@@ -122,24 +137,31 @@ class HomeController extends Controller
                                                         )
                                                 );
 
+        $building_types = $this->getDoctrine()->getRepository('AppBundle:BuildingTypes')->findAll();
         $buildingType = new BuildingType();
-        $options = array();
+        $options = array('building_types' => $building_types);
         $buildingType->buildForm($builder, $options);
         $builder->add('save', 'submit', array('label' => 'Add Building',
                                                 'attr' => array('class' => 'btn btn-success'))) ;
         $building_form = $builder->getForm();
         $building_form->handleRequest($request);
+        $all_buildings = $this->getDoctrine()->getRepository('AppBundle:Building')->findByProject($project_id);
 
         $entry_saved = false;
         if ($building_form->isSubmitted() && $building_form->isValid())
         {
             $old_building = $this->getDoctrine()->getRepository('AppBundle:Building')->findByBuilding($building->getBuilding());
+            $project = $this->getDoctrine()->getRepository('AppBundle:Project')->findOneById($project_id);
+            $building->setProject($project);
 
             if (!empty($old_building))
             {
                 return $this->render('internal/add-building.html.twig', array(
                                                                     'form_view' => $building_form->createView(),
                                                                     'entry_saved' => $entry_saved,
+                                                                    'project_id' => $project_id,
+                                                                    'project_name' => $project_name,
+                                                                    'all_buildings' => $all_buildings,
                                                                     'user_exists' => true
                                                                     ));
             }
@@ -157,19 +179,28 @@ class HomeController extends Controller
 
                 return $this->render('internal/add-building.html.twig', array(
                                                                     'form_view' => $building_form->createView(),
-                                                                    'entry_saved' => $entry_saved
+                                                                    'entry_saved' => $entry_saved,
+                                                                    'project_id' => $project_id,
+                                                                    'project_name' => $project_name,
+                                                                    'all_buildings' => $all_buildings
                                                                     ));
             }
 
             return $this->render('internal/add-building.html.twig', array(
                                                                 'form_view' => $building_form->createView(),
-                                                                'entry_saved' => $entry_saved
+                                                                'entry_saved' => $entry_saved,
+                                                                'project_id' => $project_id,
+                                                                'project_name' => $project_name,
+                                                                'all_buildings' => $all_buildings
                                                                 ));
         }
 
         return $this->render('internal/add-building.html.twig', array(
                                                             'form_view' => $building_form->createView(),
-                                                            'entry_saved' => $entry_saved
+                                                            'entry_saved' => $entry_saved,
+                                                            'project_id' => $project_id,
+                                                            'project_name' => $project_name,
+                                                            'all_buildings' => $all_buildings
                                                             ));
 
     }
@@ -179,13 +210,24 @@ class HomeController extends Controller
      */
     public function assignUsersAction(Request $request)
     {
-        $all_buildings = $this->getDoctrine()->getRepository('AppBundle:Building')->findAll();
+        $all_projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findAll();
 
-        return $this->render('internal/assign-users.html.twig', array('all_buildings' => $all_buildings));
+        return $this->render('internal/assign-users-to-project.html.twig', array('all_projects' => $all_projects));
+    }
+
+
+    /**
+     * @Route("/assign/users/project/{project_id}/{project_name}", name="internal_assign_users_by_project")
+     */
+    public function assignUsersByBuildingAction(Request $request, $project_id, $project_name)
+    {
+        $all_buildings = $this->getDoctrine()->getRepository('AppBundle:Building')->findByProject($project_id);
+
+        return $this->render('internal/assign-users.html.twig', array('all_buildings' => $all_buildings, 'project_name' => $project_name));
     }
 
     /**
-     * @Route("/assign/users/{building_id}/{building_name}", name="internal_assign_by_building")
+     * @Route("/assign/users/building/{building_id}/{building_name}", name="internal_assign_by_building")
      */
     public function assignByBuildingAction(Request $request, $building_id, $building_name)
     {

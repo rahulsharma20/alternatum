@@ -26,6 +26,22 @@ class UsersType extends AbstractType
                 'label' => 'Password',
                 'attr' => array('class' => 'col-xs-12 form-control')
             ))
+            ->add('email', 'text', array(
+                'label' => 'Email',
+                'attr' => array('class' => 'col-xs-12 form-control')
+            ))
+            ->add('phone', 'text', array(
+                'label' => 'Phone',
+                'attr' => array('class' => 'col-xs-12 form-control')
+            ))
+            ->add('projectRole', 'text', array(
+                'label' => 'Project Role',
+                'attr' => array('class' => 'col-xs-12 form-control')
+            ))
+            ->add('company', 'text', array(
+                'label' => 'Company',
+                'attr' => array('class' => 'col-xs-12 form-control')
+            ))
         ;
     }
 

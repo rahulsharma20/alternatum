@@ -24,15 +24,7 @@ class HomeController extends Controller
         $user_id = $this->getUser()->getId();
 
         // Initiate all buildings
-        $all_buildings = $this->getDoctrine()->getRepository('AppBundle:Building')->findAll();
-        // Get all user_building objects
-        $user_buildings = $this->getDoctrine()->getRepository('AppBundle:UserBuilding')->findByUser($user_id);
-
-        $buildings_assigned = [];
-        foreach ($user_buildings as $user_building)
-        {
-            array_push($buildings_assigned, $user_building->getBuilding());
-        }
+        $buildings_assigned = $this->getDoctrine()->getRepository('AppBundle:Building')->getBuildingsAssignedToUser($user_id);
 
         return $this->render('home/home.html.twig', array('buildings_assigned' => $buildings_assigned));
     }

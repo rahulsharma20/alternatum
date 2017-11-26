@@ -13,6 +13,8 @@ use AppBundle\Entity\Users;
 use AppBundle\Form\BuildingType;
 use AppBundle\Entity\Building;
 use AppBundle\Entity\UserBuilding;
+use AppBundle\Entity\Project;
+use AppBundle\Form\ProjectType;
 
 /**
  * @Route("/_internal/admin", name="internal_homepage")
@@ -110,11 +112,63 @@ class HomeController extends Controller
     /**
      * @Route("/add/building", name="internal_add_building_to_project")
      */
-    public function addBuildingToProjectAction(Request $request)
+    public function addProjectAction(Request $request)
     {
         $all_projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findAll();
 
         return $this->render('internal/add-building-to-project.html.twig', array('all_projects' => $all_projects));
+    }
+
+    /**
+     * @Route("/add/project", name="internal_add_project")
+     */
+    public function addBuildingToProjectAction(Request $request)
+    {
+        $project = new Project;
+
+        $builder = $this->get('form.factory')->createNamedBuilder(
+                                                    "app_project",'form',$project,
+                                                    array(
+                                                        'validation_groups' => array('registration','Default'),
+                                                        'csrf_protection' => false
+                                                        )
+                                                );
+
+        $projectType = new ProjectType();
+        $options = array();
+        $projectType->buildForm($builder,$options);
+
+        $project_form = $builder->getForm();
+        $project_form->handleRequest($request);
+
+        $entry_saved = false;
+        if ($project_form->isSubmitted() && $project_form->isValid())
+        {
+            try{
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($project);
+                $em->flush();
+                $entry_saved = true;
+            } catch (\Exception $e) {
+                $this->get('logger')->error("Doctrine Error : [" . var_export($e->getCode(),true) . "] Message" . $e->getMessage());
+
+                //Add error to form
+                $project_form->addError(new FormError("Database error processing your request. Please try again." ));
+
+                return $this->render('internal/add-project.html.twig', array(
+                    'form_view' => $project_form->createView()
+                ));
+            }
+
+            return $this->render('internal/add-project.html.twig', array(
+                'form_view' => $project_form->createView(),
+                'entry_saved' => $entry_saved
+            ));
+        }else {
+            return $this->render('internal/add-project.html.twig', array(
+                'form_view' => $project_form->createView()
+            ));
+        }
     }
 
     /**

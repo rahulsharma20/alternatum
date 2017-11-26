@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="col-xs-12 nopadding text-center">
+        <h1>Add new project</h1>
+    </div>
+    {{ form_errors(form_view) }}
+    {% if entry_saved is defined and entry_saved == true %}
+        <div class="col-xs-12 text-center text-success">
+            <h4>Your entry has been saved.</h4>
+        </div>
+    {% endif %}
+    <div class="col-xs-12 mar-top-30">
+        {{form_start(form_view)}}
+        <form class="form-inline">
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Name</label>
+                <div class="form-group {% if form_view.name.vars.valid==false %}has-error{% endif %}">
+                    {{ form_widget(form_view.name) }}
+                    {{ form_errors(form_view.name) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Gps Coordinates</label>
+                <div class="form-group {% if form_view.gpsCoordinates.vars.valid==false %}has-error{% endif %}">
+                    {{ form_widget(form_view.gpsCoordinates) }}
+                    {{ form_errors(form_view.gpsCoordinates) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="comment">Ownership</label>
+                <div class="form-group {% if form_view.ownership.vars.valid==false %}has-error{% endif %} ">
+                    {{ form_widget(form_view.ownership) }}
+                    {{ form_errors(form_view.ownership) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="comment">Occupant</label>
+                <div class="form-group {% if form_view.occupant.vars.valid==false %}has-error{% endif %} ">
+                    {{ form_widget(form_view.occupant) }}
+                    {{ form_errors(form_view.occupant) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Address</label>
+                <div class="form-group {% if form_view.address.vars.valid==false %}has-error{% endif %}">
+                    {{ form_widget(form_view.address) }}
+                    {{ form_errors(form_view.address) }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <label for="sel1">Image</label>
+                {{ form_widget(form_view.imageFile) }}
+                {{ form_errors(form_view.imageFile) }}
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 mar-top-20">
+                {{ form_widget(form_view.save) }}
+            </div>
+        </form>
+        {{form_end(form_view)}}
+    </div>
+{% endblock %}
